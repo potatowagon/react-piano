@@ -7,6 +7,10 @@ import Keyboard from './Keyboard';
 
 class Piano extends React.Component {
   static propTypes = {
+    // TODO: replace absentNotes, presentNotes, correctNotes with game context
+    absentNotes: PropTypes.arrayOf(PropTypes.number),
+    presentNotes: PropTypes.arrayOf(PropTypes.number),
+    correctNotes: PropTypes.arrayOf(PropTypes.number),
     noteRange: PropTypes.object.isRequired,
     activeNotes: PropTypes.arrayOf(PropTypes.number.isRequired),
     playNote: PropTypes.func.isRequired,
@@ -78,6 +82,9 @@ class Piano extends React.Component {
     const { activeNotes, onPlayNoteInput, onStopNoteInput, ...otherProps } = this.props;
     return (
       <ControlledPiano
+        absentNotes={this.props.absentNotes}
+        presentNotes={this.props.presentNotes}
+        correctNotes={this.props.correctNotes}
         activeNotes={this.state.activeNotes}
         onPlayNoteInput={this.handlePlayNoteInput}
         onStopNoteInput={this.handleStopNoteInput}

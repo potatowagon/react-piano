@@ -5,9 +5,13 @@ import classNames from 'classnames';
 
 import Key from './Key';
 import MidiNumbers from './MidiNumbers';
+import { KeyGameState } from './KeyGameState';
 
 class Keyboard extends React.Component {
   static propTypes = {
+    absentNotes: PropTypes.arrayOf(PropTypes.number),
+    presentNotes: PropTypes.arrayOf(PropTypes.number),
+    correctNotes: PropTypes.arrayOf(PropTypes.number),
     noteRange: noteRangePropType,
     activeNotes: PropTypes.arrayOf(PropTypes.number),
     onPlayNoteInput: PropTypes.func.isRequired,
@@ -27,7 +31,7 @@ class Keyboard extends React.Component {
     gliss: false,
     useTouchEvents: false,
     keyWidthToHeight: 0.33,
-    renderNoteLabel: () => {},
+    renderNoteLabel: () => { },
   };
 
   // Range of midi numbers on keyboard
@@ -59,6 +63,23 @@ class Keyboard extends React.Component {
     return `${keyWidth / this.props.keyWidthToHeight}px`;
   }
 
+  mapGameState(midiNumber) {
+    console.log("in here");
+    console.log(midiNumber);
+    console.log(this.props.presentNotes);
+
+    if (this.props.correctNotes.includes(midiNumber)) {
+      return KeyGameState.CORRECT;
+    }
+    if (this.props.presentNotes.includes(midiNumber)) {
+      return KeyGameState.PRESENT;
+    }
+    if (this.props.absentNotes.includes(midiNumber)) {
+      return KeyGameState.ABSENT;
+    }
+    return KeyGameState.UNSELECTED;
+  }
+
   render() {
     const naturalKeyWidth = this.getNaturalKeyWidth();
     return (
@@ -69,6 +90,8 @@ class Keyboard extends React.Component {
         {this.getMidiNumbers().map((midiNumber) => {
           const { note, isAccidental } = MidiNumbers.getAttributes(midiNumber);
           const isActive = !this.props.disabled && this.props.activeNotes.includes(midiNumber);
+          const gameState = this.mapGameState(midiNumber);
+          console.log(gameState);
           return (
             <Key
               naturalKeyWidth={naturalKeyWidth}
@@ -77,6 +100,7 @@ class Keyboard extends React.Component {
               active={isActive}
               accidental={isAccidental}
               disabled={this.props.disabled}
+              gameState={gameState}
               onPlayNoteInput={this.props.onPlayNoteInput}
               onStopNoteInput={this.props.onStopNoteInput}
               gliss={this.props.gliss}
@@ -86,10 +110,10 @@ class Keyboard extends React.Component {
               {this.props.disabled
                 ? null
                 : this.props.renderNoteLabel({
-                    isActive,
-                    isAccidental,
-                    midiNumber,
-                  })}
+                  isActive,
+                  isAccidental,
+                  midiNumber,
+                })}
             </Key>
           );
         })}

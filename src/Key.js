@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import MidiNumbers from './MidiNumbers';
-import KeyGameState from './KeyGameState';
+import {KeyGameState} from './KeyGameState';
 
 class Key extends React.Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class Key extends React.Component {
     accidental: PropTypes.bool.isRequired,
     active: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
-    gameState: PropTypes.string.isRequired,
+    gameState: PropTypes.symbol.isRequired,
     onPlayNoteInput: PropTypes.func.isRequired,
     onStopNoteInput: PropTypes.func.isRequired,
     accidentalWidthRatio: PropTypes.number.isRequired,
