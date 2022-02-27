@@ -83,6 +83,45 @@
 }
 
 /*
+ * Styles for correct state
+ */
+ .ReactPiano__Key--corect.ReactPiano__Key--accidental {
+  background: rgb(18, 213, 0);
+  border: 1px solid #999;
+}
+
+.ReactPiano__Key--correct.ReactPiano__Key--natural {
+  background: rgb(21, 255, 0);
+  border: 1px solid #aaa;
+}
+
+/*
+ * Styles for present state
+ */
+ .ReactPiano__Key--corect.ReactPiano__Key--accidental {
+  background: rgb(223, 215, 0);
+  border: 1px solid #999;
+}
+
+.ReactPiano__Key--correct.ReactPiano__Key--natural {
+  background: rgb(255, 225, 0);
+  border: 1px solid #aaa;
+}
+
+/*
+ * Styles for absent state
+ */
+ .ReactPiano__Key--corect.ReactPiano__Key--accidental {
+  background: rgb(73, 63, 63);
+  border: 1px solid #999;
+}
+
+.ReactPiano__Key--correct.ReactPiano__Key--natural {
+  background: rgb(73, 63, 63);
+  border: 1px solid #aaa;
+}
+
+/*
  * Styles for the note label inside a piano key
  */
 .ReactPiano__NoteLabelContainer {

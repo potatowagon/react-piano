@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import MidiNumbers from './MidiNumbers';
+import KeyGameState from './KeyGameState';
 
 class Key extends React.Component {
   static propTypes = {
@@ -13,6 +14,7 @@ class Key extends React.Component {
     accidental: PropTypes.bool.isRequired,
     active: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
+    gameState: PropTypes.string.isRequired,
     onPlayNoteInput: PropTypes.func.isRequired,
     onStopNoteInput: PropTypes.func.isRequired,
     accidentalWidthRatio: PropTypes.number.isRequired,
@@ -39,6 +41,9 @@ class Key extends React.Component {
   };
 
   onPlayNoteInput = () => {
+    if (this.props.disabled === true) {
+      return;
+    }
     this.props.onPlayNoteInput(this.props.midiNumber);
   };
 
@@ -72,6 +77,7 @@ class Key extends React.Component {
       accidental,
       active,
       disabled,
+      gameState,
       children,
     } = this.props;
 
@@ -84,6 +90,9 @@ class Key extends React.Component {
           'ReactPiano__Key--natural': !accidental,
           'ReactPiano__Key--disabled': disabled,
           'ReactPiano__Key--active': active,
+          'ReactPiano__Key--correct': gameState === KeyGameState.CORRECT,
+          'ReactPiano__Key--present': gameState === KeyGameState.PRESENT,
+          'ReactPiano__Key--absent': gameState === KeyGameState.ABSENT,
         })}
         style={{
           left: ratioToPercentage(this.getRelativeKeyPosition(midiNumber) * naturalKeyWidth),
