@@ -64,10 +64,6 @@ class Keyboard extends React.Component {
   }
 
   mapGameState(midiNumber) {
-    console.log("in here");
-    console.log(midiNumber);
-    console.log(this.props.presentNotes);
-
     if (this.props.correctNotes.includes(midiNumber)) {
       return KeyGameState.CORRECT;
     }
@@ -91,7 +87,6 @@ class Keyboard extends React.Component {
           const { note, isAccidental } = MidiNumbers.getAttributes(midiNumber);
           const isActive = !this.props.disabled && this.props.activeNotes.includes(midiNumber);
           const gameState = this.mapGameState(midiNumber);
-          console.log(gameState);
           return (
             <Key
               naturalKeyWidth={naturalKeyWidth}
